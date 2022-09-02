@@ -9,7 +9,13 @@ class Categories(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=250)
     body = models.TextField()
-    created_on = models.DataField(auto_now_add=True)
-    last_modified = models.DataField(auto_now=True)
-    categories = models.ManyToManyField('Categories', related_name='post')
+    created_on = models.DateField(auto_now_add=True)#создавать новую дату с экземпляром
+    last_modified = models.DateField(auto_now=True)#дата последнего изменения поста
+    # categories = models.ManyToManyField('Categories', related_name='post')
 
+
+class Comment(models.Model):
+    author = models.CharField(max_length=50)
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
